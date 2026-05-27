@@ -1,0 +1,20 @@
+{
+  "item.iron_age.stone_upgrade_smithing_template": "Smithing Template",
+  "item.iron_age.stone_upgrade_smithing_template.new": "Stone Upgrade",
+
+  "item.iron_age.smithing_template.stone_upgrade.applies_to": "Wooden Equipment",
+  "item.iron_age.smithing_template.stone_upgrade.ingridients": "Cobblestone",
+  "item.iron_age.smithing_template.stone_upgrade.base_slot_description": "Add wooden weapon, or tool",
+  "item.iron_age.smithing_template.stone_upgrade.additions_slot_description": "Add Cobblestone Block",
+  "upgrade.iron_age.stone_upgrade": "Stone Upgrade",
+
+
+  "item.iron_age.chainmail_upgrade_smithing_template": "Smithing Template",
+  "item.iron_age.chainmail_upgrade_smithing_template.new": "Chainmail Upgrade",
+  "upgrade.iron_age.chainmail_upgrade": "Chainmail Upgrade",
+  
+  "item.iron_age.smithing_template.chainmail_upgrade.applies_to": "Leather Equipment",
+  "item.iron_age.smithing_template.chainmail_upgrade.ingridients": "Iron Nugget",
+  "item.iron_age.smithing_template.chainmail_upgrade.base_slot_description": "Add leather armor",
+  "item.iron_age.smithing_template.chainmail_upgrade.additions_slot_description": "Add Iron Nugget"
+}
