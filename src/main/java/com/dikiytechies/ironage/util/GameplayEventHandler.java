@@ -12,6 +12,7 @@ import static com.dikiytechies.ironage.IronAge.MOD_ID;
 public class GameplayEventHandler {
     @SubscribeEvent
     public static void onInteract(LivingEvent.LivingJumpEvent event) {
+        // todo remove debug
         if (!event.getEntity().level().isClientSide() && event.getEntity() instanceof Player) {
             System.out.println(WorldAge.get(event.getEntity().level().getServer()).get().name());
             WorldAge.get(event.getEntity().level().getServer()).set(WorldAge.WorldStage.values()[((WorldAge.get(event.getEntity().level().getServer()).get().ordinal() + 1) % 3)]);
