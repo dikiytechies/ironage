@@ -1,19 +1,14 @@
 package com.dikiytechies.ironage.data.loot.predicates;
 
-import com.dikiytechies.ironage.IronAge;
 import com.dikiytechies.ironage.init.GlobalLootModifierInit;
 import com.dikiytechies.ironage.world.WorldAge;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 import java.util.Optional;
-
-import static com.dikiytechies.ironage.init.GlobalLootModifierInit.STAGE_CHECK;
 
 public record StageCheck(Optional<WorldAge.WorldStage> stage) implements LootItemCondition {
     public static final MapCodec<StageCheck> CODEC = RecordCodecBuilder.mapCodec(inst ->

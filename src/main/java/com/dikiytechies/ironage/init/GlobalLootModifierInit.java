@@ -3,7 +3,6 @@ package com.dikiytechies.ironage.init;
 import com.dikiytechies.ironage.data.loot.ModLootReplacer;
 import com.dikiytechies.ironage.data.loot.predicates.StageCheck;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;

@@ -16,9 +16,9 @@ public class IronAge {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public IronAge(IEventBus bus, ModContainer modContainer) {
-        bus.addListener(DataGenerators::gatherData);
-
         GlobalLootModifierInit.GLOBAL_LOOT_MODIFIER.register(bus);
+        GlobalLootModifierInit.LOOT_CONDITION.register(bus); // Я ишак бляя
+        bus.addListener(DataGenerators::gatherData);
     }
 
     public static ResourceLocation resLoc(String name) {
