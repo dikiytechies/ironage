@@ -1,0 +1,6 @@
+{
+  "type": "iron_age:loot_item_replacer",
+  "conditions": [],
+  "replace_with": "minecraft:iron_nugget",
+  "to_replace": "minecraft:iron_ingot"
+}

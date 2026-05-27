@@ -1,6 +1,9 @@
 package com.dikiytechies.ironage;
 
+import com.dikiytechies.ironage.data.DataGenerators;
+import com.dikiytechies.ironage.init.GlobalLootModifierInit;
 import com.mojang.logging.LogUtils;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -13,6 +16,12 @@ public class IronAge {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public IronAge(IEventBus bus, ModContainer modContainer) {
+        bus.addListener(DataGenerators::gatherData);
 
+        GlobalLootModifierInit.GLOBAL_LOOT_MODIFIER.register(bus);
+    }
+
+    public static ResourceLocation resLoc(String name) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
     }
 }

@@ -1,13 +1,10 @@
 package com.dikiytechies.ironage.util;
 
-import com.dikiytechies.ironage.IronAge;
 import com.dikiytechies.ironage.world.WorldAge;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import static com.dikiytechies.ironage.IronAge.MOD_ID;
 

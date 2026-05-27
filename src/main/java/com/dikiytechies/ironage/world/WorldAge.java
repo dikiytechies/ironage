@@ -1,5 +1,6 @@
 package com.dikiytechies.ironage.world;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
@@ -45,6 +46,8 @@ public class WorldAge extends SavedData {
     public enum WorldStage {
         DEFAULT,
         PRE_STONE,
-        PRE_IRON
+        PRE_IRON;
+
+        public static final Codec<WorldStage> CODEC = Codec.STRING.xmap(WorldStage::valueOf, WorldStage::name);
     }
 }
