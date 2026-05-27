@@ -2,8 +2,11 @@
   "type": "iron_age:loot_item_replacer",
   "conditions": [
     {
-      "condition": "iron_age:stage_check",
-      "stage": "PRE_IRON"
+      "condition": "minecraft:inverted",
+      "term": {
+        "condition": "iron_age:stage_check",
+        "stage": "DEFAULT"
+      }
     }
   ],
   "replace_with": "minecraft:iron_nugget",

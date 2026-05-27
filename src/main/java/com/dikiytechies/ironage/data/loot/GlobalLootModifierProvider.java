@@ -20,7 +20,7 @@ public class GlobalLootModifierProvider extends net.neoforged.neoforge.common.da
     @Override
     protected void start() {
         this.add("loot_item_replacer", new ModLootReplacer(new LootItemCondition[] {
-                StageCheck.staging().setStage(WorldAge.WorldStage.PRE_IRON).build()
+                StageCheck.staging().setStage(WorldAge.WorldStage.DEFAULT).invert().build()
         }, Items.IRON_INGOT, Items.IRON_NUGGET));
     }
 }
