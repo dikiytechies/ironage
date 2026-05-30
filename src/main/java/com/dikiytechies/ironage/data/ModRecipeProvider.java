@@ -3,25 +3,16 @@ package com.dikiytechies.ironage.data;
 import com.dikiytechies.ironage.IronAge;
 import com.dikiytechies.ironage.init.ModItems;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SmithingTransformRecipe;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.concurrent.CompletableFuture;
-
-import static com.dikiytechies.ironage.IronAge.MOD_ID;
 
 public class ModRecipeProvider extends RecipeProvider {
 
@@ -73,6 +64,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 result)
                 .unlocks(getHasName(addition), has(addition)).save(out, IronAge.resLoc(getItemName(result) + "_smithing"));
     }
+
     private static void addSmithing(RecipeOutput out, ItemLike template, ItemLike base, TagKey<Item> addition, Item result, RecipeCategory category, String id) {
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(template),

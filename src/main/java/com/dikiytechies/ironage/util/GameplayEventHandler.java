@@ -3,7 +3,6 @@ package com.dikiytechies.ironage.util;
 import com.dikiytechies.ironage.world.WorldAge;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -11,9 +10,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
-
-import java.util.Collection;
-import java.util.stream.Collectors;
 
 import static com.dikiytechies.ironage.IronAge.MOD_ID;
 
@@ -37,7 +33,7 @@ public class GameplayEventHandler {
         LivingEntity entity = event.getEntity();
         if (!(entity instanceof ServerPlayer) && !WorldAge.get(entity.getServer()).get().equals(WorldAge.WorldStage.DEFAULT)) {
             event.getDrops().forEach(item -> {
-                if (item.getItem().getItem().equals(Items.IRON_INGOT)) {
+                if (item.getItem().is(Items.IRON_INGOT)) {
                     ItemStack newStack = new ItemStack(Items.IRON_NUGGET);
                     newStack.setCount(item.getItem().getCount());
                     item.setItem(newStack);

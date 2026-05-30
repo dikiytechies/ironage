@@ -1,7 +1,6 @@
 package com.dikiytechies.ironage;
 
 import com.dikiytechies.ironage.data.DataGenerators;
-import com.dikiytechies.ironage.data.ModRecipeProvider;
 import com.dikiytechies.ironage.init.GlobalLootModifierInit;
 import com.dikiytechies.ironage.init.ModItems;
 import com.mojang.logging.LogUtils;
