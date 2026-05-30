@@ -17,5 +17,6 @@ public class DataGenerators {
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
         gen.addProvider(event.includeServer(), new GlobalLootModifierProvider(packOut, lookupProvider));
+        gen.addProvider(event.includeServer(), new ModRecipeProvider(packOut, lookupProvider));
     }
 }

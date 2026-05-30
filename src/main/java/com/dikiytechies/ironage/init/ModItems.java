@@ -31,10 +31,10 @@ public class ModItems {
     @SubscribeEvent
     public static void addItemsToCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
-            event.insertAfter(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                    new ItemStack(STONE_UPGRADE_SMITHING_TEMPLATE.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-            event.insertAfter(new ItemStack(STONE_UPGRADE_SMITHING_TEMPLATE.get()),
+            event.insertBefore(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
                     new ItemStack(CHAINMAIL_UPGRADE_SMITHING_TEMPLATE.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            event.insertBefore(new ItemStack(CHAINMAIL_UPGRADE_SMITHING_TEMPLATE.get()),
+                    new ItemStack(STONE_UPGRADE_SMITHING_TEMPLATE.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         }
     }
 

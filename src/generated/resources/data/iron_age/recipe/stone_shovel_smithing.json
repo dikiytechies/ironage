@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "tag": "minecraft:stone_tool_materials"
+  },
+  "base": {
+    "item": "minecraft:wooden_shovel"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:stone_shovel"
+  },
+  "template": {
+    "item": "iron_age:stone_upgrade_smithing_template"
+  }
+}
