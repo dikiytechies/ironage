@@ -37,14 +37,14 @@ public abstract class CraftingTableRecipesBanMixin {
     }
 
     @Unique
-    public <I extends RecipeInput, T extends Recipe<I>> boolean checkIron(RecipeType<T> recipe, I input, Level level) {
+    private <I extends RecipeInput, T extends Recipe<I>> boolean checkIron(RecipeType<T> recipe, I input, Level level) {
         return this.byType(recipe).stream().anyMatch(r -> r.value().matches(input, level)
                 && r.value().getResultItem(level.registryAccess()).is(Items.IRON_INGOT)) &&
                 !WorldAge.get(level.getServer()).get().equals(WorldAge.WorldStage.DEFAULT);
     }
 
     @Unique
-    public <I extends RecipeInput, T extends Recipe<I>> boolean checkStone(RecipeType<T> recipe, I input, Level level) {
+    private <I extends RecipeInput, T extends Recipe<I>> boolean checkStone(RecipeType<T> recipe, I input, Level level) {
         return this.byType(recipe).stream().anyMatch(r -> r.value().matches(input, level)
                 && stoneTools.contains(r.value().getResultItem(level.registryAccess()).getItem())) &&
                 WorldAge.get(level.getServer()).get().equals(WorldAge.WorldStage.PRE_STONE);
