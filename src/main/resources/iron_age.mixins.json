@@ -4,8 +4,7 @@
   "package": "com.dikiytechies.ironage.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "CraftingTableRecipesBanMixin",
-    "FurnaceRecipeSwapMixin"
+    "RecipesBanMixin"
   ],
   "client": [
   ],

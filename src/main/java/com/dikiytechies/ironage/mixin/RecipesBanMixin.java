@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Mixin(RecipeManager.class)
-public abstract class CraftingTableRecipesBanMixin {
+public abstract class RecipesBanMixin {
     @Shadow
     private <I extends RecipeInput, T extends Recipe<I>> Collection<RecipeHolder<T>> byType(RecipeType<T> p_44055_) {
         return null;
@@ -29,7 +29,10 @@ public abstract class CraftingTableRecipesBanMixin {
     public <I extends RecipeInput, T extends Recipe<I>> void banRecipes(
             RecipeType<T> recipe, I input, Level level, @Nullable RecipeHolder<T> lastRecipe, CallbackInfoReturnable<Optional<RecipeHolder<T>>> cir) {
         if (!level.isClientSide()) {
-            if (checkIron(recipe, input, level) || checkStone(recipe, input, level)) {
+            if (isCookingRecipe(recipe) && checkIron(recipe, input, level)) {
+                cir.setReturnValue(getNuggetsRecipe(recipe, level));
+                cir.cancel();
+            } else if (checkIron(recipe, input, level) || checkStone(recipe, input, level)) {
                 cir.setReturnValue(Optional.empty());
                 cir.cancel();
             }
@@ -48,6 +51,16 @@ public abstract class CraftingTableRecipesBanMixin {
         return this.byType(recipe).stream().anyMatch(r -> r.value().matches(input, level)
                 && stoneTools.contains(r.value().getResultItem(level.registryAccess()).getItem())) &&
                 WorldAge.get(level.getServer()).get().equals(WorldAge.WorldStage.PRE_STONE);
+    }
+
+    @Unique
+    private <I extends RecipeInput, T extends Recipe<I>> Optional<RecipeHolder<T>> getNuggetsRecipe(RecipeType<T> recipe, Level level) {
+        return this.byType(recipe).stream().filter(r -> r.value().getResultItem(level.registryAccess()).is(Items.IRON_NUGGET)).findFirst();
+    }
+
+    @Unique
+    private static <I extends RecipeInput, T extends Recipe<I>> boolean isCookingRecipe(RecipeType<T> type) {
+        return type == RecipeType.SMELTING || type == RecipeType.BLASTING;
     }
 
     @Unique
