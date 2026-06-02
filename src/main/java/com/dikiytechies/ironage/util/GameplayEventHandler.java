@@ -4,12 +4,14 @@ import com.dikiytechies.ironage.world.WorldAge;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+
+import java.util.Set;
 
 import static com.dikiytechies.ironage.IronAge.MOD_ID;
 
@@ -40,5 +42,30 @@ public class GameplayEventHandler {
                 }
             });
         }
+    }
+    // todo save world state for client too
+    @SubscribeEvent
+    public static void harvestCheck(PlayerEvent.HarvestCheck event) {
+        Player player = event.getEntity();
+        if (!player.level().isClientSide() && event.canHarvest() && event.getTargetBlock().requiresCorrectToolForDrops()) {
+            WorldAge age = WorldAge.get(player.level().getServer());
+            if (player.getMainHandItem().getItem() instanceof TieredItem tool) {
+                if (checkStoneTool(age, tool)) {
+                    event.setCanHarvest(event.getTargetBlock().is(Tiers.WOOD.getIncorrectBlocksForDrops()));
+                } else if (checkLateGameTools(age, tool)) {
+                    event.setCanHarvest(event.getTargetBlock().is(Tiers.STONE.getIncorrectBlocksForDrops()));
+                }
+            }
+        }
+    }
+
+    private static boolean checkStoneTool(WorldAge age, TieredItem tool) {
+        return !age.get().equals(WorldAge.WorldStage.PRE_STONE) && tool.getTier().equals(Tiers.STONE);
+    }
+
+    private static final Set<Tier> lateGameTiers = Set.of(Tiers.IRON, Tiers.DIAMOND, Tiers.NETHERITE);
+
+    private static boolean checkLateGameTools(WorldAge age, TieredItem tool) {
+        return !age.get().equals(WorldAge.WorldStage.DEFAULT) && lateGameTiers.contains(tool.getTier());
     }
 }
