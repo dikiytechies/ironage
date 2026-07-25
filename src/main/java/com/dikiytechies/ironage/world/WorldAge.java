@@ -3,9 +3,12 @@ package com.dikiytechies.ironage.world;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 public class WorldAge extends SavedData {
     private WorldStage worldStage;
@@ -49,5 +52,7 @@ public class WorldAge extends SavedData {
         PRE_IRON;
 
         public static final Codec<WorldStage> CODEC = Codec.STRING.xmap(WorldStage::valueOf, WorldStage::name);
+
+        public static final StreamCodec<FriendlyByteBuf, WorldStage> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(WorldStage.class);
     }
 }
