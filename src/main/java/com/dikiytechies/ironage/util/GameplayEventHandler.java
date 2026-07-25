@@ -1,6 +1,8 @@
 package com.dikiytechies.ironage.util;
 
+import com.dikiytechies.ironage.network.s2c.SyncWorldStage;
 import com.dikiytechies.ironage.world.WorldAge;
+import com.dikiytechies.ironage.world.WorldAgeState;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -10,6 +12,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Set;
 
@@ -21,8 +24,8 @@ public class GameplayEventHandler {
     public static void onInteract(LivingEvent.LivingJumpEvent event) {
         // todo remove debug
         if (!event.getEntity().level().isClientSide() && event.getEntity() instanceof Player) {
-            System.out.println(WorldAge.get(event.getEntity().level().getServer()).get().name());
-            WorldAge.get(event.getEntity().level().getServer()).set(WorldAge.WorldStage.values()[((WorldAge.get(event.getEntity().level().getServer()).get().ordinal() + 1) % 3)]);
+            System.out.println(WorldAge.getStage(event.getEntity().level().getServer()).getStage().name());
+            WorldAge.getStage(event.getEntity().level().getServer()).setStage(WorldAgeState.WorldStage.values()[((WorldAge.getStage(event.getEntity().level().getServer()).getStage().ordinal() + 1) % 3)]);
         }
     }
 
@@ -33,7 +36,7 @@ public class GameplayEventHandler {
 
     private static void transformIronIngots(LivingDropsEvent event) {
         LivingEntity entity = event.getEntity();
-        if (!(entity instanceof ServerPlayer) && !WorldAge.get(entity.getServer()).get().equals(WorldAge.WorldStage.DEFAULT)) {
+        if (!(entity instanceof ServerPlayer) && !WorldAge.getStage(entity.getServer()).getStage().equals(WorldAgeState.WorldStage.DEFAULT)) {
             event.getDrops().forEach(item -> {
                 if (item.getItem().is(Items.IRON_INGOT)) {
                     ItemStack newStack = new ItemStack(Items.IRON_NUGGET);
@@ -47,25 +50,29 @@ public class GameplayEventHandler {
     @SubscribeEvent
     public static void harvestCheck(PlayerEvent.HarvestCheck event) {
         Player player = event.getEntity();
+
         if (!player.level().isClientSide() && event.canHarvest() && event.getTargetBlock().requiresCorrectToolForDrops()) {
-            WorldAge age = WorldAge.get(player.level().getServer());
+            WorldAge age = WorldAge.getStage(player.level().getServer());
             if (player.getMainHandItem().getItem() instanceof TieredItem tool) {
+                boolean canHarvest = true;
                 if (checkStoneTool(age, tool)) {
-                    event.setCanHarvest(event.getTargetBlock().is(Tiers.WOOD.getIncorrectBlocksForDrops()));
+                    canHarvest = event.getTargetBlock().is(Tiers.WOOD.getIncorrectBlocksForDrops());
                 } else if (checkLateGameTools(age, tool)) {
-                    event.setCanHarvest(event.getTargetBlock().is(Tiers.STONE.getIncorrectBlocksForDrops()));
+                    canHarvest = event.getTargetBlock().is(Tiers.STONE.getIncorrectBlocksForDrops());
                 }
+                event.setCanHarvest(canHarvest);
+                PacketDistributor.sendToPlayer((ServerPlayer) player, new SyncWorldStage(age.getStage()));
             }
         }
     }
 
     private static boolean checkStoneTool(WorldAge age, TieredItem tool) {
-        return !age.get().equals(WorldAge.WorldStage.PRE_STONE) && tool.getTier().equals(Tiers.STONE);
+        return !age.getStage().equals(WorldAgeState.WorldStage.PRE_STONE) && tool.getTier().equals(Tiers.STONE);
     }
 
     private static final Set<Tier> lateGameTiers = Set.of(Tiers.IRON, Tiers.DIAMOND, Tiers.NETHERITE);
 
     private static boolean checkLateGameTools(WorldAge age, TieredItem tool) {
-        return !age.get().equals(WorldAge.WorldStage.DEFAULT) && lateGameTiers.contains(tool.getTier());
+        return !age.getStage().equals(WorldAgeState.WorldStage.DEFAULT) && lateGameTiers.contains(tool.getTier());
     }
 }

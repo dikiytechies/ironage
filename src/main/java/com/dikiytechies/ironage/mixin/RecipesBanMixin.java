@@ -1,6 +1,7 @@
 package com.dikiytechies.ironage.mixin;
 
 import com.dikiytechies.ironage.world.WorldAge;
+import com.dikiytechies.ironage.world.WorldAgeState;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
@@ -43,14 +44,14 @@ public abstract class RecipesBanMixin {
     private <I extends RecipeInput, T extends Recipe<I>> boolean checkIron(RecipeType<T> recipe, I input, Level level) {
         return this.byType(recipe).stream().anyMatch(r -> r.value().matches(input, level)
                 && r.value().getResultItem(level.registryAccess()).is(Items.IRON_INGOT)) &&
-                !WorldAge.get(level.getServer()).get().equals(WorldAge.WorldStage.DEFAULT);
+                !WorldAge.getStage(level.getServer()).getStage().equals(WorldAgeState.WorldStage.DEFAULT);
     }
 
     @Unique
     private <I extends RecipeInput, T extends Recipe<I>> boolean checkStone(RecipeType<T> recipe, I input, Level level) {
         return this.byType(recipe).stream().anyMatch(r -> r.value().matches(input, level)
                 && stoneTools.contains(r.value().getResultItem(level.registryAccess()).getItem())) &&
-                WorldAge.get(level.getServer()).get().equals(WorldAge.WorldStage.PRE_STONE);
+                WorldAge.getStage(level.getServer()).getStage().equals(WorldAgeState.WorldStage.PRE_STONE);
     }
 
     @Unique
