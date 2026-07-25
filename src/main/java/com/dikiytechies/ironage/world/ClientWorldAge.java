@@ -12,7 +12,8 @@ public class ClientWorldAge {
     public static ClientWorldAge getInstance() {
         if (instance != null)
             return instance;
-        return new ClientWorldAge();
+        instance = new ClientWorldAge();
+        return instance;
     }
 
     public void setStage(WorldAge.WorldStage stage) {

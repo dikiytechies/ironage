@@ -1,5 +1,6 @@
 package com.dikiytechies.ironage.world;
 
+import com.dikiytechies.ironage.network.s2c.SyncWorldAge;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -8,6 +9,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 public class WorldAge extends SavedData {
@@ -23,6 +25,7 @@ public class WorldAge extends SavedData {
 
     public void set(WorldStage stage) {
         worldStage = stage;
+        PacketDistributor.sendToAllPlayers(new SyncWorldAge(stage));
         setDirty();
     }
 
