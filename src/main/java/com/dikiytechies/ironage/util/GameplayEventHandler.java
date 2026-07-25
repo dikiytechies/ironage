@@ -1,6 +1,7 @@
 package com.dikiytechies.ironage.util;
 
 import com.dikiytechies.ironage.IronAge;
+import com.dikiytechies.ironage.network.s2c.SyncWorldAge;
 import com.dikiytechies.ironage.world.ClientWorldAge;
 import com.dikiytechies.ironage.world.WorldAge;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,6 +13,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Set;
 
@@ -75,5 +77,11 @@ public class GameplayEventHandler {
 
     private static boolean checkLateGameTools(WorldAge.WorldStage stage, TieredItem tool) {
         return !stage.equals(WorldAge.WorldStage.DEFAULT) && lateGameTiers.contains(tool.getTier());
+    }
+
+    @SubscribeEvent // this event is server-side
+    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        WorldAge.WorldStage stage = WorldAge.get(event.getEntity().getServer()).get();
+        PacketDistributor.sendToPlayer((ServerPlayer) event.getEntity(), new SyncWorldAge(stage));
     }
 }
