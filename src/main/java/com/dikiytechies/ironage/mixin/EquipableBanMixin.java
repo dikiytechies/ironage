@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Equipable.class)
 public interface EquipableBanMixin {
+    // todo connect to tiers
     @Inject(method = "swapWithEquipmentSlot", at = @At("HEAD"), cancellable = true)
     default void banItemOnUse(Item item, Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         ItemStack stack = player.getItemInHand(hand);
