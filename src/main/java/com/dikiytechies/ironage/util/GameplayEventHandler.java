@@ -15,7 +15,7 @@ import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.Set;
+import java.util.List;
 
 import static com.dikiytechies.ironage.IronAge.MOD_ID;
 
@@ -68,16 +68,16 @@ public class GameplayEventHandler {
         }
     }
 
-    private static boolean checkStoneTool(WorldAge.WorldStage stage, TieredItem tool) {
+    public static boolean checkStoneTool(WorldAge.WorldStage stage, TieredItem tool) {
         boolean isInConfig = IronAgeConfig.CONFIG.getPreStoneBanned().contains(tool);
         return !stage.equals(WorldAge.WorldStage.PRE_STONE) && (tool.getTier().equals(Tiers.STONE) || isInConfig);
     }
 
-    private static final Set<Tier> lateGameTiers = Set.of(Tiers.IRON, Tiers.DIAMOND, Tiers.NETHERITE);
+    private static final List<Tier> LATE_GAME_TIERS = List.of(Tiers.IRON, Tiers.DIAMOND, Tiers.NETHERITE);
 
-    private static boolean checkLateGameTools(WorldAge.WorldStage stage, TieredItem tool) {
+    public static boolean checkLateGameTools(WorldAge.WorldStage stage, TieredItem tool) {
         boolean isInConfig = IronAgeConfig.CONFIG.getPreIronBanned().contains(tool);
-        return !stage.equals(WorldAge.WorldStage.DEFAULT) && (lateGameTiers.contains(tool.getTier()) || isInConfig);
+        return !stage.equals(WorldAge.WorldStage.DEFAULT) && (LATE_GAME_TIERS.contains(tool.getTier()) || isInConfig);
     }
 
     @SubscribeEvent // this event is server-side
