@@ -10,6 +10,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import org.slf4j.Logger;
 
@@ -36,6 +37,11 @@ public class IronAge {
     @SubscribeEvent
     private void registerPackets(final RegisterPayloadHandlersEvent event) {
         PacketsRegister.register(event);
+    }
+
+    @SubscribeEvent
+    private void modifyComponents(ModifyDefaultComponentsEvent event) {
+
     }
 
     private static void registerConfig(ModContainer container) {

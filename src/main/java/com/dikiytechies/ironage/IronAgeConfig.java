@@ -42,13 +42,15 @@ public class IronAgeConfig {
     }
 
     private List<Item> getBannedFromList(List<? extends String> list) {
-        return list.stream().map(str -> {
-            var loc = ResourceLocation.tryParse(str);
-            if (loc != null) {
-                return BuiltInRegistries.ITEM.get(loc);
-            }
-            return null;
-        }).toList();
+        return list.stream()
+            .filter(str -> ResourceLocation.tryParse(str) != null)
+            .map(str -> {
+                var loc = ResourceLocation.tryParse(str);
+                if (loc != null) {
+                    return BuiltInRegistries.ITEM.get(loc);
+                }
+                return null;
+            }).toList();
     }
 
     public List<Item> getPreStoneBanned() {

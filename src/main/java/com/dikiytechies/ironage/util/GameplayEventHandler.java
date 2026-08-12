@@ -1,6 +1,6 @@
 package com.dikiytechies.ironage.util;
 
-import com.dikiytechies.ironage.IronAge;
+import com.dikiytechies.ironage.IronAgeConfig;
 import com.dikiytechies.ironage.network.s2c.SyncWorldAge;
 import com.dikiytechies.ironage.world.ClientWorldAge;
 import com.dikiytechies.ironage.world.WorldAge;
@@ -58,7 +58,6 @@ public class GameplayEventHandler {
             } else {
                 stage = ClientWorldAge.getInstance().getStage();
             }
-            IronAge.LOGGER.debug(stage.toString());
             if (player.getMainHandItem().getItem() instanceof TieredItem tool) {
                 if (checkStoneTool(stage, tool)) {
                     event.setCanHarvest(event.getTargetBlock().is(Tiers.WOOD.getIncorrectBlocksForDrops()));
@@ -70,13 +69,15 @@ public class GameplayEventHandler {
     }
 
     private static boolean checkStoneTool(WorldAge.WorldStage stage, TieredItem tool) {
-        return !stage.equals(WorldAge.WorldStage.PRE_STONE) && tool.getTier().equals(Tiers.STONE);
+        boolean isInConfig = IronAgeConfig.CONFIG.getPreStoneBanned().contains(tool);
+        return !stage.equals(WorldAge.WorldStage.PRE_STONE) && (tool.getTier().equals(Tiers.STONE) || isInConfig);
     }
 
     private static final Set<Tier> lateGameTiers = Set.of(Tiers.IRON, Tiers.DIAMOND, Tiers.NETHERITE);
 
     private static boolean checkLateGameTools(WorldAge.WorldStage stage, TieredItem tool) {
-        return !stage.equals(WorldAge.WorldStage.DEFAULT) && lateGameTiers.contains(tool.getTier());
+        boolean isInConfig = IronAgeConfig.CONFIG.getPreIronBanned().contains(tool);
+        return !stage.equals(WorldAge.WorldStage.DEFAULT) && (lateGameTiers.contains(tool.getTier()) || isInConfig);
     }
 
     @SubscribeEvent // this event is server-side
