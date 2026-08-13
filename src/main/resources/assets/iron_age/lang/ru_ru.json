@@ -22,9 +22,9 @@
   "item.iron_age.iron_upgrade_smithing_template.new": "Железное улучшение",
   "upgrade.iron_age.iron_upgrade": "Железное улучшение",
 
-  "item.iron_age.smithing_template.iron_upgrade.applies_to": "Кольчужному снаряжению",
+  "item.iron_age.smithing_template.iron_upgrade.applies_to": "Каменному, кольчужному или золотому снаряжению",
   "item.iron_age.smithing_template.iron_upgrade.ingridients": "Железный слиток",
-  "item.iron_age.smithing_template.iron_upgrade.base_slot_description": "Поместите кольчужную броню",
+  "item.iron_age.smithing_template.iron_upgrade.base_slot_description": "Поместите каменное, кольчужное или золотое снаряжение",
   "item.iron_age.smithing_template.iron_upgrade.additions_slot_description": "Поместите железный слиток",
 
   "item.iron_age.diamond_upgrade_smithing_template": "Кузнечный шаблон",
@@ -33,7 +33,7 @@
 
   "item.iron_age.smithing_template.diamond_upgrade.applies_to": "Железному снаряжению",
   "item.iron_age.smithing_template.diamond_upgrade.ingridients": "Алмаз",
-  "item.iron_age.smithing_template.diamond_upgrade.base_slot_description": "Поместите железную броню",
+  "item.iron_age.smithing_template.diamond_upgrade.base_slot_description": "Поместите железное снаряжение",
   "item.iron_age.smithing_template.diamond_upgrade.additions_slot_description": "Поместите алмаз",
 
   "tooltip.iron_age.item_warn": "Использование предмета приведёт к поломке!"
