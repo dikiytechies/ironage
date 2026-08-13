@@ -65,7 +65,7 @@ public class GameplayEventHandler {
             if (player.getMainHandItem().getItem() instanceof TieredItem tool) {
                 if (ModUtil.checkStoneTool(stage, tool)) {
                     event.setCanHarvest(event.getTargetBlock().is(Tiers.WOOD.getIncorrectBlocksForDrops()));
-                } else if (ModUtil.checkLateGameTools(stage, tool)) {
+                } else if (ModUtil.checkIronTools(stage, tool)) {
                     event.setCanHarvest(event.getTargetBlock().is(Tiers.STONE.getIncorrectBlocksForDrops()));
                 }
             }
@@ -84,7 +84,7 @@ public class GameplayEventHandler {
     }
 
     private static void warnUsingBannedItem(ItemTooltipEvent event) {
-        if (event.getContext().level().isClientSide()) {
+        if (event.getContext().level() != null && event.getContext().level().isClientSide()) {
             var config = IronAgeConfig.CONFIG;
             ItemStack stack = event.getItemStack();
             WorldAge.WorldStage stage = ClientWorldAge.getInstance().getStage();

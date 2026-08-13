@@ -1,16 +1,21 @@
 package com.dikiytechies.ironage.world;
 
 import com.dikiytechies.ironage.network.s2c.SyncWorldAge;
+import com.dikiytechies.ironage.util.ModUtil;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
+
+import java.util.List;
 
 public class WorldAge extends SavedData {
     private WorldStage worldStage;
@@ -50,9 +55,18 @@ public class WorldAge extends SavedData {
 
 
     public enum WorldStage {
-        DEFAULT,
-        PRE_STONE,
-        PRE_IRON;
+        DEFAULT(List.of(), List.of()),
+        PRE_STONE(ModUtil.STONE_TIERS, ModUtil.STONE_MATERIALS),
+        PRE_IRON(ModUtil.IRON_TIERS, ModUtil.IRON_MATERIALS),
+        PRE_LATE(ModUtil.LATE_TIERS, ModUtil.LATE_MATERIALS);
+
+        public final List<Tier> toolTier;
+        public final List<ArmorMaterial> armorMaterial;
+
+        WorldStage(List<Tier> toolTiers, List<ArmorMaterial> armorMaterials) {
+            this.toolTier = toolTiers;
+            this.armorMaterial = armorMaterials;
+        }
 
         public static final Codec<WorldStage> CODEC = Codec.STRING.xmap(WorldStage::valueOf, WorldStage::name);
 

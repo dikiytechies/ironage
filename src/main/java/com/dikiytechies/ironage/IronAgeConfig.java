@@ -88,13 +88,13 @@ public class IronAgeConfig {
                 if (stage.equals(WorldAge.WorldStage.PRE_STONE)) {
                     shouldBeBannedByDefault = ModUtil.checkStoneMaterial(stage, armor);
                 } else if (stage.equals(WorldAge.WorldStage.PRE_IRON)) {
-                    shouldBeBannedByDefault = ModUtil.checkLateGameMaterial(stage, armor);
+                    shouldBeBannedByDefault = ModUtil.checkIronMaterial(stage, armor);
                 }
             } else if (item instanceof TieredItem tool) {
                 if (stage.equals(WorldAge.WorldStage.PRE_STONE)) {
                     shouldBeBannedByDefault = ModUtil.checkStoneTool(stage, tool);
                 } else if (stage.equals(WorldAge.WorldStage.PRE_IRON)) {
-                    shouldBeBannedByDefault = ModUtil.checkLateGameTools(stage, tool);
+                    shouldBeBannedByDefault = ModUtil.checkIronTools(stage, tool);
                 }
             }
         }
