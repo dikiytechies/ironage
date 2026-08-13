@@ -18,15 +18,34 @@ public class ModUtil {
             Tiers.DIAMOND,
             Tiers.NETHERITE
     );
-
+    @Deprecated
     public static boolean checkStoneTool(WorldAge.WorldStage stage, TieredItem tool) {
         boolean isInConfig = IronAgeConfig.CONFIG.getPreStoneBanned().contains(tool);
         return stage.equals(WorldAge.WorldStage.PRE_STONE) && (STONE_TIERS.contains(tool.getTier()) || isInConfig);
     }
-
+    @Deprecated
     public static boolean checkIronTools(WorldAge.WorldStage stage, TieredItem tool) {
         boolean isInConfig = IronAgeConfig.CONFIG.getPreIronBanned().contains(tool);
         return !stage.equals(WorldAge.WorldStage.DEFAULT) && (IRON_TIERS.contains(tool.getTier()) || isInConfig);
+    }
+
+    public static final List<ArmorMaterial> STONE_MATERIALS = List.of();
+    public static final List<ArmorMaterial> IRON_MATERIALS = List.of(
+            ArmorMaterials.IRON.value()
+    );
+    public static final List<ArmorMaterial> LATE_MATERIALS = List.of(
+            ArmorMaterials.DIAMOND.value(),
+            ArmorMaterials.NETHERITE.value()
+    );
+    @Deprecated
+    public static boolean checkStoneMaterial(WorldAge.WorldStage stage, ArmorItem armor) {
+        boolean isInConfig = IronAgeConfig.CONFIG.getPreStoneBanned().contains(armor);
+        return stage.equals(WorldAge.WorldStage.PRE_STONE) && (STONE_MATERIALS.contains(armor.getMaterial().value()) || isInConfig);
+    }
+    @Deprecated
+    public static boolean checkIronMaterial(WorldAge.WorldStage stage, ArmorItem armor) {
+        boolean isInConfig = IronAgeConfig.CONFIG.getPreIronBanned().contains(armor);
+        return !stage.equals(WorldAge.WorldStage.DEFAULT) && (IRON_MATERIALS.contains(armor.getMaterial().value()) || isInConfig);
     }
 
     public static<T extends Item> boolean checkItem(WorldAge.WorldStage stage, T item) {
@@ -41,24 +60,5 @@ public class ModUtil {
                 return result;
         }
         return false;
-    }
-
-    public static final List<ArmorMaterial> STONE_MATERIALS = List.of();
-    public static final List<ArmorMaterial> IRON_MATERIALS = List.of(
-            ArmorMaterials.IRON.value()
-    );
-    public static final List<ArmorMaterial> LATE_MATERIALS = List.of(
-            ArmorMaterials.DIAMOND.value(),
-            ArmorMaterials.NETHERITE.value()
-    );
-
-    public static boolean checkStoneMaterial(WorldAge.WorldStage stage, ArmorItem armor) {
-        boolean isInConfig = IronAgeConfig.CONFIG.getPreStoneBanned().contains(armor);
-        return stage.equals(WorldAge.WorldStage.PRE_STONE) && (STONE_MATERIALS.contains(armor.getMaterial().value()) || isInConfig);
-    }
-
-    public static boolean checkIronMaterial(WorldAge.WorldStage stage, ArmorItem armor) {
-        boolean isInConfig = IronAgeConfig.CONFIG.getPreIronBanned().contains(armor);
-        return !stage.equals(WorldAge.WorldStage.DEFAULT) && (IRON_MATERIALS.contains(armor.getMaterial().value()) || isInConfig);
     }
 }

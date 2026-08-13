@@ -21,6 +21,8 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
+import java.util.Arrays;
+
 import static com.dikiytechies.ironage.IronAge.MOD_ID;
 
 @EventBusSubscriber(modid = MOD_ID)
@@ -63,10 +65,13 @@ public class GameplayEventHandler {
                 stage = ClientWorldAge.getInstance().getStage();
             }
             if (player.getMainHandItem().getItem() instanceof TieredItem tool) {
-                if (ModUtil.checkStoneTool(stage, tool)) {
-                    event.setCanHarvest(event.getTargetBlock().is(Tiers.WOOD.getIncorrectBlocksForDrops()));
-                } else if (ModUtil.checkIronTools(stage, tool)) {
-                    event.setCanHarvest(event.getTargetBlock().is(Tiers.STONE.getIncorrectBlocksForDrops()));
+                if (ModUtil.checkItem(stage, tool)) {
+                    int toolOrdinal = Arrays.stream(Tiers.values())
+                            .filter(t -> t.equals(tool.getTier()))
+                            .findAny()
+                            .map(Enum::ordinal)
+                            .orElse(0);
+                    event.setCanHarvest(event.getTargetBlock().is(Tiers.values()[Math.max(0, toolOrdinal - 1)].getIncorrectBlocksForDrops()));
                 }
             }
         }

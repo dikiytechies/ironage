@@ -4,9 +4,7 @@ import com.dikiytechies.ironage.util.ModUtil;
 import com.dikiytechies.ironage.world.WorldAge;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.TieredItem;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -84,19 +82,7 @@ public class IronAgeConfig {
         boolean shouldBeBannedByDefault = false;
         // shit code
         if (!ignoreDefaults) {
-            if (item instanceof ArmorItem armor) {
-                if (stage.equals(WorldAge.WorldStage.PRE_STONE)) {
-                    shouldBeBannedByDefault = ModUtil.checkStoneMaterial(stage, armor);
-                } else if (stage.equals(WorldAge.WorldStage.PRE_IRON)) {
-                    shouldBeBannedByDefault = ModUtil.checkIronMaterial(stage, armor);
-                }
-            } else if (item instanceof TieredItem tool) {
-                if (stage.equals(WorldAge.WorldStage.PRE_STONE)) {
-                    shouldBeBannedByDefault = ModUtil.checkStoneTool(stage, tool);
-                } else if (stage.equals(WorldAge.WorldStage.PRE_IRON)) {
-                    shouldBeBannedByDefault = ModUtil.checkIronTools(stage, tool);
-                }
-            }
+            shouldBeBannedByDefault = ModUtil.checkItem(stage, item);
         }
 
         return isInBanList || shouldBeBannedByDefault;
