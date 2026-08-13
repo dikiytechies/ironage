@@ -16,5 +16,7 @@
   "item.iron_age.smithing_template.chainmail_upgrade.applies_to": "Кожаному снаряжению",
   "item.iron_age.smithing_template.chainmail_upgrade.ingridients": "Железный кусочек",
   "item.iron_age.smithing_template.chainmail_upgrade.base_slot_description": "Поместите кожаную одежду",
-  "item.iron_age.smithing_template.chainmail_upgrade.additions_slot_description": "Поместите железный кусочек"
+  "item.iron_age.smithing_template.chainmail_upgrade.additions_slot_description": "Поместите железный кусочек",
+
+  "tooltip.iron_age.item_warn": "Использование предмета приведёт к поломке!"
 }

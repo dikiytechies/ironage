@@ -4,6 +4,8 @@ import com.dikiytechies.ironage.IronAgeConfig;
 import com.dikiytechies.ironage.network.s2c.SyncWorldAge;
 import com.dikiytechies.ironage.world.ClientWorldAge;
 import com.dikiytechies.ironage.world.WorldAge;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -12,6 +14,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -84,5 +87,21 @@ public class GameplayEventHandler {
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         WorldAge.WorldStage stage = WorldAge.get(event.getEntity().getServer()).get();
         PacketDistributor.sendToPlayer((ServerPlayer) event.getEntity(), new SyncWorldAge(stage));
+    }
+
+    @SubscribeEvent
+    public static void addToolTips(ItemTooltipEvent event) {
+        warnUsingBannedItem(event);
+    }
+
+    private static void warnUsingBannedItem(ItemTooltipEvent event) {
+        if (event.getContext().level().isClientSide()) {
+            var config = IronAgeConfig.CONFIG;
+            ItemStack stack = event.getItemStack();
+            WorldAge.WorldStage stage = ClientWorldAge.getInstance().getStage();
+            if (config.shouldProcess(stage, stack.getItem())) {
+                event.getToolTip().add(Component.translatable(String.format("tooltip.%s.item_warn", MOD_ID)).withStyle(ChatFormatting.DARK_RED));
+            }
+        }
     }
 }

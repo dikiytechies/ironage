@@ -16,5 +16,7 @@
   "item.iron_age.smithing_template.chainmail_upgrade.applies_to": "Leather Equipment",
   "item.iron_age.smithing_template.chainmail_upgrade.ingridients": "Iron Nugget",
   "item.iron_age.smithing_template.chainmail_upgrade.base_slot_description": "Add leather armor",
-  "item.iron_age.smithing_template.chainmail_upgrade.additions_slot_description": "Add Iron Nugget"
+  "item.iron_age.smithing_template.chainmail_upgrade.additions_slot_description": "Add Iron Nugget",
+
+  "tooltip.iron_age.item_warn": "Using this item will break it!"
 }
