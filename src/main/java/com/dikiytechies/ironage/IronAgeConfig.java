@@ -1,13 +1,18 @@
 package com.dikiytechies.ironage;
 
+import com.dikiytechies.ironage.util.ModUtil;
 import com.dikiytechies.ironage.world.WorldAge;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TieredItem;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class IronAgeConfig {
     public static final IronAgeConfig CONFIG;
@@ -23,6 +28,7 @@ public class IronAgeConfig {
     public final ModConfigSpec.EnumValue<WorldAge.WorldStage> startingStage;
     public final ModConfigSpec.ConfigValue<List<? extends String>> preStoneItems;
     public final ModConfigSpec.ConfigValue<List<? extends String>> preIronItems;
+    public final ModConfigSpec.ConfigValue<Boolean> ignoreDefaultItems;
 
     public IronAgeConfig(ModConfigSpec.Builder builder) {
         builder.push("World Options");
@@ -30,6 +36,11 @@ public class IronAgeConfig {
         startingStage = builder.defineEnum("starting_stage", WorldAge.WorldStage.PRE_STONE);
         builder.pop();
         builder.push("Item component assignment");
+        builder.comment("Ignores default items to ban");
+        builder.comment("This includes both armor materials and tool tiers for late-game and STONE for early");
+        builder.comment("Tools: (STONE ; IRON, DIAMOND and NETHERITE)");
+        builder.comment("Armor: (NONE ; IRON, DIAMOND and NETHERITE)");
+        ignoreDefaultItems = builder.define("ignore_default", false);
         builder.comment("Assigns items banned on PRE_STONE");
         preStoneItems = builder.defineList("pre_stone_items", List.of(),
                 () -> "minecraft:air",
@@ -61,8 +72,37 @@ public class IronAgeConfig {
         return getBannedFromList(preIronItems.get());
     }
 
+    private boolean shouldProcess(WorldAge.WorldStage stage, Item item, boolean ignoreDefaults) {
+        Set<Item> manuallyBanned = new HashSet<>();
+        if (stage.equals(WorldAge.WorldStage.PRE_STONE)) {
+            manuallyBanned.addAll(getPreStoneBanned());
+            manuallyBanned.addAll(getPreIronBanned());
+        } else if (stage.equals(WorldAge.WorldStage.PRE_IRON)) {
+            manuallyBanned.addAll(getPreIronBanned());
+        }
+        boolean isInBanList = manuallyBanned.contains(item);
+        boolean shouldBeBannedByDefault = false;
+        // shit code
+        if (!ignoreDefaults) {
+            if (item instanceof ArmorItem armor) {
+                if (stage.equals(WorldAge.WorldStage.PRE_STONE)) {
+                    shouldBeBannedByDefault = ModUtil.checkStoneMaterial(stage, armor);
+                } else if (stage.equals(WorldAge.WorldStage.PRE_IRON)) {
+                    shouldBeBannedByDefault = ModUtil.checkLateGameMaterial(stage, armor);
+                }
+            } else if (item instanceof TieredItem tool) {
+                if (stage.equals(WorldAge.WorldStage.PRE_STONE)) {
+                    shouldBeBannedByDefault = ModUtil.checkStoneTool(stage, tool);
+                } else if (stage.equals(WorldAge.WorldStage.PRE_IRON)) {
+                    shouldBeBannedByDefault = ModUtil.checkLateGameTools(stage, tool);
+                }
+            }
+        }
+
+        return isInBanList || shouldBeBannedByDefault;
+    }
+
     public boolean shouldProcess(WorldAge.WorldStage stage, Item item) {
-        return stage.equals(WorldAge.WorldStage.PRE_STONE)? getPreStoneBanned().contains(item):
-                stage.equals(WorldAge.WorldStage.PRE_IRON) && (getPreStoneBanned().contains(item) || getPreIronBanned().contains(item));
+        return shouldProcess(stage, item, ignoreDefaultItems.get());
     }
 }
