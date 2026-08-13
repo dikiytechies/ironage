@@ -23,9 +23,7 @@ public interface EquipableBanMixin {
         ItemStack stack = player.getItemInHand(hand);
         WorldAge.WorldStage stage = level.isClientSide()? ClientWorldAge.getInstance().getStage(): WorldAge.get(level.getServer()).get();
         var config = IronAgeConfig.CONFIG;
-        boolean shouldProcess = stage.equals(WorldAge.WorldStage.PRE_STONE)? config.getPreStoneBanned().contains(item):
-                stage.equals(WorldAge.WorldStage.PRE_IRON) && (config.getPreStoneBanned().contains(item) || config.getPreIronBanned().contains(item));
-        if (shouldProcess) {
+        if (config.shouldProcess(stage, item)) {
             cir.setReturnValue(InteractionResultHolder.fail(stack));
             cir.cancel();
         }

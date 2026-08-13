@@ -60,4 +60,9 @@ public class IronAgeConfig {
     public List<Item> getPreIronBanned() {
         return getBannedFromList(preIronItems.get());
     }
+
+    public boolean shouldProcess(WorldAge.WorldStage stage, Item item) {
+        return stage.equals(WorldAge.WorldStage.PRE_STONE)? getPreStoneBanned().contains(item):
+                stage.equals(WorldAge.WorldStage.PRE_IRON) && (getPreStoneBanned().contains(item) || getPreIronBanned().contains(item));
+    }
 }

@@ -22,9 +22,7 @@ public interface ArmorBanMixin {
     default void preventEquip(EquipmentSlot armorType, LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
         WorldAge.WorldStage stage = entity.level().isClientSide()? ClientWorldAge.getInstance().getStage(): WorldAge.get(entity.level().getServer()).get();
         var config = IronAgeConfig.CONFIG;
-        boolean shouldProcess = stage.equals(WorldAge.WorldStage.PRE_STONE)? config.getPreStoneBanned().contains(self().getItem()):
-                stage.equals(WorldAge.WorldStage.PRE_IRON) && (config.getPreStoneBanned().contains(self().getItem()) || config.getPreIronBanned().contains(self().getItem()));
-        if (shouldProcess) {
+        if (config.shouldProcess(stage, self().getItem())) {
             cir.setReturnValue(false);
             cir.cancel();
         }

@@ -6,6 +6,7 @@
   "mixins": [
     "ArmorBanMixin",
     "EquipableBanMixin",
+    "ItemStackMixin",
     "RecipesBanMixin"
   ],
   "client": [
