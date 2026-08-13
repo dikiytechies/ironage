@@ -49,7 +49,9 @@ public class ModUtil {
     }
 
     public static<T extends Item> boolean checkItem(WorldAge.WorldStage stage, T item) {
-        for (int i = stage.ordinal(); i > 0; i--) {
+        if (stage.equals(WorldAge.WorldStage.DEFAULT)) return false;
+
+        for (int i = stage.ordinal(); i <= WorldAge.WorldStage.values().length; i++) {
             boolean result = false;
             if (item instanceof ArmorItem armor) {
                 result = WorldAge.WorldStage.values()[i].armorMaterial.contains(armor.getMaterial().value());
