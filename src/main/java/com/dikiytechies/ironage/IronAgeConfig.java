@@ -36,8 +36,8 @@ public class IronAgeConfig {
         builder.push("Item component assignment");
         builder.comment("Ignores default items to ban");
         builder.comment("This includes both armor materials and tool tiers for late-game and STONE for early");
-        builder.comment("Tools: (STONE ; IRON, DIAMOND and NETHERITE)");
-        builder.comment("Armor: (NONE ; IRON, DIAMOND and NETHERITE)");
+        builder.comment("Tools: (STONE, GOLD ; IRON, DIAMOND and NETHERITE)");
+        builder.comment("Armor: (CHAIN, GOLD ; IRON, DIAMOND and NETHERITE)");
         ignoreDefaultItems = builder.define("ignore_default", false);
         builder.comment("Assigns items banned on PRE_STONE");
         preStoneItems = builder.defineList("pre_stone_items", List.of(),
@@ -80,7 +80,7 @@ public class IronAgeConfig {
         }
         boolean isInBanList = manuallyBanned.contains(item);
         boolean shouldBeBannedByDefault = false;
-        // shit code
+
         if (!ignoreDefaults) {
             shouldBeBannedByDefault = ModUtil.checkItem(stage, item);
         }

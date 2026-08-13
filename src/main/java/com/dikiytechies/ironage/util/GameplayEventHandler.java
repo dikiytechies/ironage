@@ -65,7 +65,8 @@ public class GameplayEventHandler {
                 stage = ClientWorldAge.getInstance().getStage();
             }
             if (player.getMainHandItem().getItem() instanceof TieredItem tool) {
-                if (ModUtil.checkItem(stage, tool)) {
+                var config = IronAgeConfig.CONFIG;
+                if (ModUtil.checkItem(stage, tool) && !config.ignoreDefaultItems.get()) {
                     int toolOrdinal = Arrays.stream(Tiers.values())
                             .filter(t -> t.equals(tool.getTier()))
                             .findAny()
