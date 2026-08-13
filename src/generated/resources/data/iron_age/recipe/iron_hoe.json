@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:iron_ingot"
+  },
+  "base": {
+    "tag": "iron_age:tool_hoe_can_be_upgraded_to_iron"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:iron_hoe"
+  },
+  "template": {
+    "item": "iron_age:iron_upgrade_smithing_template"
+  }
+}

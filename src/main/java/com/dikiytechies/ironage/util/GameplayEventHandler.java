@@ -31,8 +31,8 @@ public class GameplayEventHandler {
     public static void onInteract(LivingEvent.LivingJumpEvent event) {
         // todo remove debug
         if (!event.getEntity().level().isClientSide() && event.getEntity() instanceof Player) {
+            WorldAge.get(event.getEntity().level().getServer()).set(WorldAge.WorldStage.values()[((WorldAge.get(event.getEntity().level().getServer()).get().ordinal() + 1) % WorldAge.WorldStage.values().length)]);
             System.out.println(WorldAge.get(event.getEntity().level().getServer()).get().name());
-            WorldAge.get(event.getEntity().level().getServer()).set(WorldAge.WorldStage.values()[((WorldAge.get(event.getEntity().level().getServer()).get().ordinal() + 1) % 3)]);
         }
     }
 

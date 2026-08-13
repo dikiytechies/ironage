@@ -18,5 +18,23 @@
   "item.iron_age.smithing_template.chainmail_upgrade.base_slot_description": "Add leather armor",
   "item.iron_age.smithing_template.chainmail_upgrade.additions_slot_description": "Add Iron Nugget",
 
+  "item.iron_age.iron_upgrade_smithing_template": "Smithing Template",
+  "item.iron_age.iron_upgrade_smithing_template.new": "Iron Upgrade",
+  "upgrade.iron_age.iron_upgrade": "Iron Upgrade",
+
+  "item.iron_age.smithing_template.iron_upgrade.applies_to": "Chainmail Equipment",
+  "item.iron_age.smithing_template.iron_upgrade.ingridients": "Iron Ingot",
+  "item.iron_age.smithing_template.iron_upgrade.base_slot_description": "Add chainmail armor",
+  "item.iron_age.smithing_template.iron_upgrade.additions_slot_description": "Add Iron Ingot",
+
+  "item.iron_age.diamond_upgrade_smithing_template": "Smithing Template",
+  "item.iron_age.diamond_upgrade_smithing_template.new": "Diamond Upgrade",
+  "upgrade.iron_age.diamond_upgrade": "Diamond Upgrade",
+
+  "item.iron_age.smithing_template.diamond_upgrade.applies_to": "Iron Equipment",
+  "item.iron_age.smithing_template.diamond_upgrade.ingridients": "Diamond",
+  "item.iron_age.smithing_template.diamond_upgrade.base_slot_description": "Add iron armor",
+  "item.iron_age.smithing_template.diamond_upgrade.additions_slot_description": "Add Diamond",
+
   "tooltip.iron_age.item_warn": "Using this item will break it!"
 }

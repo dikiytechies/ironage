@@ -27,11 +27,20 @@ public class ModItems {
     public static final DeferredItem<SmithingTemplateItem> CHAINMAIL_UPGRADE_SMITHING_TEMPLATE = ITEMS.registerItem("chainmail_upgrade_smithing_template",
             (p) -> createUpgrade("chainmail_upgrade", createTrimmableArmorIconList(), List.of(EMPTY_SLOT_INGOT)), new Item.Properties());
 
+    public static final DeferredItem<SmithingTemplateItem> IRON_UPGRADE_SMITHING_TEMPLATE = ITEMS.registerItem("iron_upgrade_smithing_template",
+            (p) -> createUpgrade("iron_upgrade", createTrimmableArmorIconList(), List.of(EMPTY_SLOT_INGOT)), new Item.Properties());
+
+    public static final DeferredItem<SmithingTemplateItem> DIAMOND_UPGRADE_SMITHING_TEMPLATE = ITEMS.registerItem("diamond_upgrade_smithing_template",
+            (p) -> createUpgrade("diamond_upgrade", createTrimmableArmorIconList(), List.of(EMPTY_SLOT_DIAMOND)), new Item.Properties());
 
     @SubscribeEvent
     public static void addItemsToCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
             event.insertBefore(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                    new ItemStack(DIAMOND_UPGRADE_SMITHING_TEMPLATE.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            event.insertBefore(new ItemStack(DIAMOND_UPGRADE_SMITHING_TEMPLATE.get()),
+                    new ItemStack(IRON_UPGRADE_SMITHING_TEMPLATE.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            event.insertBefore(new ItemStack(IRON_UPGRADE_SMITHING_TEMPLATE.get()),
                     new ItemStack(CHAINMAIL_UPGRADE_SMITHING_TEMPLATE.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             event.insertBefore(new ItemStack(CHAINMAIL_UPGRADE_SMITHING_TEMPLATE.get()),
                     new ItemStack(STONE_UPGRADE_SMITHING_TEMPLATE.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
