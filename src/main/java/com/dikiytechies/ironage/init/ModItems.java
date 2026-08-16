@@ -19,19 +19,22 @@ import static net.minecraft.world.item.SmithingTemplateItem.*;
 
 @EventBusSubscriber(modid = MOD_ID)
 public class ModItems {
+    public static final ResourceLocation EMPTY_SLOT_BLOCK = IronAge.resLoc("item/empty_slot_block");
+    public static final ResourceLocation EMPTY_SLOT_IRON_NUGGET = IronAge.resLoc("item/empty_slot_iron_nugget");
+
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MOD_ID);
 
     public static final DeferredItem<SmithingTemplateItem> STONE_UPGRADE_SMITHING_TEMPLATE = ITEMS.registerItem("stone_upgrade_smithing_template",
-            (p) -> createUpgrade("stone_upgrade", createToolsIconList(), List.of(EMPTY_SLOT_INGOT)), new Item.Properties());
+            (p) -> createUpgrade("stone_upgrade", createToolsIconList(), List.of(EMPTY_SLOT_BLOCK)), new Item.Properties());
 
     public static final DeferredItem<SmithingTemplateItem> CHAINMAIL_UPGRADE_SMITHING_TEMPLATE = ITEMS.registerItem("chainmail_upgrade_smithing_template",
-            (p) -> createUpgrade("chainmail_upgrade", createTrimmableArmorIconList(), List.of(EMPTY_SLOT_INGOT)), new Item.Properties());
+            (p) -> createUpgrade("chainmail_upgrade", createTrimmableArmorIconList(), List.of(EMPTY_SLOT_IRON_NUGGET)), new Item.Properties());
 
     public static final DeferredItem<SmithingTemplateItem> IRON_UPGRADE_SMITHING_TEMPLATE = ITEMS.registerItem("iron_upgrade_smithing_template",
-            (p) -> createUpgrade("iron_upgrade", createTrimmableArmorIconList(), List.of(EMPTY_SLOT_INGOT)), new Item.Properties());
+            (p) -> createUpgrade("iron_upgrade", createNetheriteUpgradeIconList(), List.of(EMPTY_SLOT_INGOT)), new Item.Properties());
 
     public static final DeferredItem<SmithingTemplateItem> DIAMOND_UPGRADE_SMITHING_TEMPLATE = ITEMS.registerItem("diamond_upgrade_smithing_template",
-            (p) -> createUpgrade("diamond_upgrade", createTrimmableArmorIconList(), List.of(EMPTY_SLOT_DIAMOND)), new Item.Properties());
+            (p) -> createUpgrade("diamond_upgrade", createNetheriteUpgradeIconList(), List.of(EMPTY_SLOT_DIAMOND)), new Item.Properties());
 
     @SubscribeEvent
     public static void addItemsToCreative(BuildCreativeModeTabContentsEvent event) {
