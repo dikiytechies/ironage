@@ -22,7 +22,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
-import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -33,15 +32,6 @@ import static com.dikiytechies.ironage.IronAge.MOD_ID;
 
 @EventBusSubscriber(modid = MOD_ID)
 public class GameplayEventHandler {
-    @SubscribeEvent
-    public static void onInteract(LivingEvent.LivingJumpEvent event) {
-        // todo remove debug
-        if (!event.getEntity().level().isClientSide() && event.getEntity() instanceof Player) {
-            WorldAge.get(event.getEntity().level().getServer()).set(WorldAge.WorldStage.values()[((WorldAge.get(event.getEntity().level().getServer()).get().ordinal() + 1) % WorldAge.WorldStage.values().length)]);
-            System.out.println(WorldAge.get(event.getEntity().level().getServer()).get().name());
-        }
-    }
-
     @SubscribeEvent
     public static void onLivingDrops(LivingDropsEvent event) {
         transformIronIngots(event);
@@ -88,6 +78,13 @@ public class GameplayEventHandler {
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         WorldAge.WorldStage stage = WorldAge.get(event.getEntity().getServer()).get();
         PacketDistributor.sendToPlayer((ServerPlayer) event.getEntity(), new SyncWorldAge(stage));
+        String id = switch(stage) {
+            case DEFAULT -> "default";
+            case PRE_STONE -> "root";
+            case PRE_IRON -> "visit_nether";
+            case PRE_LATE -> "late_reached";
+        };
+        ModUtil.grantAdvancementUntil((ServerPlayer) event.getEntity(), IronAge.resLoc(id));
     }
 
     @SubscribeEvent

@@ -1,5 +1,6 @@
 package com.dikiytechies.ironage.util;
 
+import com.dikiytechies.ironage.IronAge;
 import com.dikiytechies.ironage.IronAgeConfig;
 import com.dikiytechies.ironage.world.WorldAge;
 import net.minecraft.advancements.AdvancementHolder;
@@ -88,6 +89,19 @@ public class ModUtil {
                 for (ServerPlayer player : server.getPlayerList().getPlayers())
                     return player.getAdvancements().award(advancement, criterion);
             }
+        }
+        return false;
+    }
+
+    public static boolean grantAdvancementUntil(ServerPlayer player, ResourceLocation advancementId) {
+        AdvancementHolder advancement = player.getServer().getAdvancements().get(advancementId);
+        if (advancement != null) {
+            do {
+                grantAdvancement(player, advancementId);
+                advancementId = advancement.value().parent().orElse(IronAge.resLoc("root"));
+                advancement = player.getServer().getAdvancements().get(advancementId);
+            } while (advancement.value().parent().isPresent());
+            grantAdvancement(player, IronAge.resLoc("root"));
         }
         return false;
     }
