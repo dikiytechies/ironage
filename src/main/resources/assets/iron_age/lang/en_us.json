@@ -36,5 +36,16 @@
   "item.iron_age.smithing_template.diamond_upgrade.base_slot_description": "Add iron equipment",
   "item.iron_age.smithing_template.diamond_upgrade.additions_slot_description": "Add Diamond",
 
-  "tooltip.iron_age.item_warn": "Using this item will break it!"
+  "tooltip.iron_age.item_warn": "Using this item will break it!",
+
+  "advancements.iron_age.root.title": "Iron Age",
+  "advancements.iron_age.root.description": "The real stone age starts here",
+  "advancements.iron_age.stone_upgrade.title": "Stone Upgrade!",
+  "advancements.iron_age.stone_upgrade.description": "A civilization could've figured out how to get them",
+  "advancements.iron_age.chain_upgrade.title": "Chainmail Upgrade...",
+  "advancements.iron_age.chain_upgrade.description": "You need to find the way to duplicate it. Maybe its origin is a tip for it",
+  "advancements.iron_age.iron_upgrade.title": "This is why we're here...",
+  "advancements.iron_age.iron_upgrade.description": "Basically, yeah, found in Nether Fortress",
+  "advancements.iron_age.diamond_upgrade.title": "Min-maxing!",
+  "advancements.iron_age.diamond_upgrade.description": "You decided to keep your op enchantments"
 }

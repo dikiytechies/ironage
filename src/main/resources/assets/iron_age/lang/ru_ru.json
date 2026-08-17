@@ -36,5 +36,16 @@
   "item.iron_age.smithing_template.diamond_upgrade.base_slot_description": "Поместите железное снаряжение",
   "item.iron_age.smithing_template.diamond_upgrade.additions_slot_description": "Поместите алмаз",
 
-  "tooltip.iron_age.item_warn": "Использование предмета приведёт к поломке!"
+  "tooltip.iron_age.item_warn": "Использование предмета приведёт к поломке!",
+
+  "advancements.iron_age.root.title": "Iron Age",
+  "advancements.iron_age.root.description": "Реальный каменный век начинается здесь",
+  "advancements.iron_age.stone_upgrade.title": "Каменное улучшение!",
+  "advancements.iron_age.stone_upgrade.description": "Должно быть, цивилизация нашла способ их добычи",
+  "advancements.iron_age.chain_upgrade.title": "Кольчужное улучшение...",
+  "advancements.iron_age.chain_upgrade.description": "Вам нужно найти способ их копирования. Вполне вероятно, что место происхождение укажет на него",
+  "advancements.iron_age.iron_upgrade.title": "Причина всего этого...",
+  "advancements.iron_age.iron_upgrade.description": "Ага, прямо из крепости Незера",
+  "advancements.iron_age.diamond_upgrade.title": "Минмаксинг!",
+  "advancements.iron_age.diamond_upgrade.description": "Вы решили оставить свои имбовые зачарования"
 }
