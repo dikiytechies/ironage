@@ -32,5 +32,7 @@ public class DataGenerators {
         };
         gen.addProvider(event.includeServer(), blockTagsProvider);
         gen.addProvider(event.includeServer(), new ModItemTagsProvider(packOut, lookupProvider, blockTagsProvider.contentsGetter(), IronAge.MOD_ID, existingFileHelper));
+
+        gen.addProvider(event.includeServer(), new ModAdvancementsProvider(packOut, lookupProvider, existingFileHelper));
     }
 }

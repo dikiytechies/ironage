@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "get_cobblestone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:cobblestone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/block/stone.png",
+    "description": {
+      "translate": "advancements.iron_age.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:wooden_sword"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.iron_age.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_cobblestone"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

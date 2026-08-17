@@ -1,0 +1,36 @@
+{
+  "parent": "iron_age:chain_upgrade",
+  "criteria": {
+    "get_iron_upgrade": {
+      "conditions": {
+        "items": [
+          {
+            "items": "iron_age:iron_upgrade_smithing_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.iron_age.iron_upgrade.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "iron_age:iron_upgrade_smithing_template"
+    },
+    "title": {
+      "translate": "advancements.iron_age.iron_upgrade.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_iron_upgrade"
+    ]
+  ],
+  "rewards": {
+    "experience": 70
+  },
+  "sends_telemetry_event": true
+}
