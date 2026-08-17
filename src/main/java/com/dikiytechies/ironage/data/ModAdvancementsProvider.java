@@ -118,7 +118,7 @@ public class ModAdvancementsProvider extends AdvancementProvider {
 
             AdvancementHolder late = Advancement.Builder.advancement()
                     .parent(ironUpgrade)
-                    .display(new ItemStack(Items.ENDER_EYE),
+                    .display(new ItemStack(Items.ENDER_PEARL),
                             withTitle("late_reached"),
                             withDesc("late_reached"),
                             null,
@@ -154,7 +154,7 @@ public class ModAdvancementsProvider extends AdvancementProvider {
                             AdvancementType.GOAL,
                             true,
                             true,
-                            false)
+                            true)
                     .addCriterion("default", KilledTrigger.TriggerInstance.playerKilledEntity(Optional.of(EntityPredicate.Builder.entity().of(EntityType.ENDER_DRAGON).build())))
                     .save(saver, IronAge.resLoc("default"), existingFileHelper);
         }
