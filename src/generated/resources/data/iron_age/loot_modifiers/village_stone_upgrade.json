@@ -1,0 +1,23 @@
+{
+  "type": "iron_age:loot_item_adder",
+  "conditions": [
+    {
+      "condition": "minecraft:any_of",
+      "terms": [
+        {
+          "condition": "neoforge:loot_table_id",
+          "loot_table_id": "minecraft:chests/village/village_toolsmith"
+        },
+        {
+          "condition": "neoforge:loot_table_id",
+          "loot_table_id": "minecraft:chests/village/village_weaponsmith"
+        }
+      ]
+    },
+    {
+      "chance": 0.45,
+      "condition": "minecraft:random_chance"
+    }
+  ],
+  "item": "iron_age:stone_upgrade_smithing_template"
+}

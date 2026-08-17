@@ -1,0 +1,14 @@
+{
+  "type": "iron_age:loot_item_adder",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/end_city_treasure"
+    },
+    {
+      "chance": 0.35,
+      "condition": "minecraft:random_chance"
+    }
+  ],
+  "item": "iron_age:diamond_upgrade_smithing_template"
+}

@@ -1,5 +1,6 @@
 package com.dikiytechies.ironage.init;
 
+import com.dikiytechies.ironage.data.loot.ModLootAdder;
 import com.dikiytechies.ironage.data.loot.ModLootReplacer;
 import com.dikiytechies.ironage.data.loot.predicates.StageCheck;
 import com.mojang.serialization.MapCodec;
@@ -17,8 +18,10 @@ public class GlobalLootModifierInit {
     public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> GLOBAL_LOOT_MODIFIER = DeferredRegister.create(NeoForgeRegistries.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MOD_ID);
     public static final DeferredRegister<LootItemConditionType> LOOT_CONDITION = DeferredRegister.create(Registries.LOOT_CONDITION_TYPE, MOD_ID);
 
-    public static final Supplier<MapCodec<ModLootReplacer>> LOOT_MODIFIER = GLOBAL_LOOT_MODIFIER.register("loot_item_replacer",
+    public static final Supplier<MapCodec<ModLootReplacer>> LOOT_REPLACER = GLOBAL_LOOT_MODIFIER.register("loot_item_replacer",
             () -> ModLootReplacer.CODEC);
+    public static final Supplier<MapCodec<ModLootAdder>> LOOT_ADDER = GLOBAL_LOOT_MODIFIER.register("loot_item_adder",
+            () -> ModLootAdder.CODEC);
 
     public static final Supplier<LootItemConditionType> STAGE_CHECK = LOOT_CONDITION.register("stage_check",
             () -> new LootItemConditionType(StageCheck.CODEC));

@@ -1,6 +1,10 @@
 {
   "entries": [
-    "iron_age:loot_item_replacer"
+    "iron_age:loot_item_replacer",
+    "iron_age:village_stone_upgrade",
+    "iron_age:ruined_portal_chainmail_upgrade",
+    "iron_age:nether_bridge_iron_upgrade",
+    "iron_age:end_city_treasure_diamond_upgrade"
   ],
   "replace": false
 }
