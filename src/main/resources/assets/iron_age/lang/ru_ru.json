@@ -48,5 +48,13 @@
   "advancements.iron_age.iron_upgrade.title": "Причина всего этого...",
   "advancements.iron_age.iron_upgrade.description": "Ага, прямо из крепости Незера",
   "advancements.iron_age.diamond_upgrade.title": "Минмаксинг!",
-  "advancements.iron_age.diamond_upgrade.description": "Вы решили оставить свои имбовые зачарования"
+  "advancements.iron_age.diamond_upgrade.description": "Вы решили оставить свои имбовые зачарования",
+  "advancements.iron_age.visit_nether.title": "Становится жарче",
+  "advancements.iron_age.visit_nether.description": "Да конечно-конечно Вы попали сюда в кожанке",
+  "advancements.iron_age.visit_fortress.title": "Свет мой, зеркальце, скажи, кто краснее всех на свете...",
+  "advancements.iron_age.visit_fortress.description": "Рандом присоединился к игре",
+  "advancements.iron_age.late_reached.title": "Ещё чуть-чуть...",
+  "advancements.iron_age.late_reached.description": "Найдите крепость энда. Экстра вызов: одолейте Визера >:)",
+  "advancements.iron_age.default.title": "Всем удачи, всем пока-пока",
+  "advancements.iron_age.default.description": "Мод больше не влияет на игру. Поставьте ☆☆☆☆☆ и подпишитесь на канал"
 }

@@ -1,5 +1,5 @@
 {
-  "parent": "iron_age:stone_upgrade",
+  "parent": "iron_age:root",
   "criteria": {
     "get_chain_upgrade": {
       "conditions": {

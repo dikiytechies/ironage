@@ -1,0 +1,32 @@
+{
+  "parent": "iron_age:chain_upgrade",
+  "criteria": {
+    "visit_nether": {
+      "conditions": {
+        "to": "minecraft:the_nether"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.iron_age.visit_nether.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "minecraft:obsidian"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.iron_age.visit_nether.title"
+    }
+  },
+  "requirements": [
+    [
+      "visit_nether"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

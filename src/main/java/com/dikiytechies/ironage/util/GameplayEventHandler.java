@@ -1,20 +1,26 @@
 package com.dikiytechies.ironage.util;
 
+import com.dikiytechies.ironage.IronAge;
 import com.dikiytechies.ironage.IronAgeConfig;
 import com.dikiytechies.ironage.network.s2c.SyncWorldAge;
 import com.dikiytechies.ironage.world.ClientWorldAge;
 import com.dikiytechies.ironage.world.WorldAge;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.Tiers;
+import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
@@ -99,6 +105,39 @@ public class GameplayEventHandler {
             } else if (config.shouldProcess(stage, stack.getItem())) {
                 event.getToolTip().add(Component.translatable(String.format("tooltip.%s.item_warn", MOD_ID)).withStyle(ChatFormatting.DARK_RED));
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onDimensionStage(PlayerEvent.PlayerChangedDimensionEvent event) {
+        triggerDimWorldAge(event);
+    }
+
+    private static void triggerDimWorldAge(PlayerEvent.PlayerChangedDimensionEvent event) {
+        ResourceKey<Level> dimension = event.getTo();
+        WorldAge currentAge = WorldAge.get(event.getEntity().level().getServer());
+        MinecraftServer server = (event.getEntity()).getServer();
+        if (dimension.equals(Level.NETHER)) {
+            if (currentAge.proceedTo(WorldAge.WorldStage.PRE_IRON)) {
+                ModUtil.grantAdvancementToAll(server, IronAge.resLoc("visit_nether"));
+            }
+        } else if (dimension.equals(Level.END)) {
+            if (currentAge.proceedTo(WorldAge.WorldStage.PRE_LATE)) {
+                ModUtil.grantAdvancementToAll(server, IronAge.resLoc("late_reached"));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingDeath(LivingDeathEvent event) {
+        onDragonKilled(event);
+    }
+
+    private static void onDragonKilled(LivingDeathEvent event) {
+        if (event.getEntity().getType() == EntityType.ENDER_DRAGON && !event.getEntity().level().isClientSide()) {
+            WorldAge age = WorldAge.get(event.getEntity().level().getServer());
+            age.set(WorldAge.WorldStage.DEFAULT);
+            ModUtil.grantAdvancementToAll(event.getEntity().getServer(), IronAge.resLoc("default"));
         }
     }
 }

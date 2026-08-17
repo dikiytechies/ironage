@@ -2,6 +2,10 @@ package com.dikiytechies.ironage.util;
 
 import com.dikiytechies.ironage.IronAgeConfig;
 import com.dikiytechies.ironage.world.WorldAge;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.*;
 
 import java.util.List;
@@ -63,6 +67,27 @@ public class ModUtil {
             }
             if (result)
                 return result;
+        }
+        return false;
+    }
+
+    public static boolean grantAdvancement(ServerPlayer player, ResourceLocation advancementId) {
+        AdvancementHolder advancement = player.getServer().getAdvancements().get(advancementId);
+        if (advancement != null) {
+            for (String criterion : advancement.value().criteria().keySet()) {
+                return player.getAdvancements().award(advancement, criterion);
+            }
+        }
+        return false;
+    }
+
+    public static boolean grantAdvancementToAll(MinecraftServer server, ResourceLocation advancementId) {
+        AdvancementHolder advancement = server.getAdvancements().get(advancementId);
+        if (advancement != null) {
+            for (String criterion : advancement.value().criteria().keySet()) {
+                for (ServerPlayer player : server.getPlayerList().getPlayers())
+                    return player.getAdvancements().award(advancement, criterion);
+            }
         }
         return false;
     }

@@ -48,5 +48,13 @@
   "advancements.iron_age.iron_upgrade.title": "This is why we're here...",
   "advancements.iron_age.iron_upgrade.description": "Basically, yeah, found in Nether Fortress",
   "advancements.iron_age.diamond_upgrade.title": "Min-maxing!",
-  "advancements.iron_age.diamond_upgrade.description": "You decided to keep your op enchantments"
+  "advancements.iron_age.diamond_upgrade.description": "You decided to keep your op enchantments",
+  "advancements.iron_age.visit_nether.title": "It is getting hotter",
+  "advancements.iron_age.visit_nether.description": "Oh yeah you visited it with the leather armor",
+  "advancements.iron_age.visit_fortress.title": "Outta my way it is Scary Hour",
+  "advancements.iron_age.visit_fortress.description": "Here comes a rng",
+  "advancements.iron_age.late_reached.title": "It is almost over...",
+  "advancements.iron_age.late_reached.description": "Reach stronghold. Extra challenge: defeat wither >:)",
+  "advancements.iron_age.default.title": "It is time to delete ts",
+  "advancements.iron_age.default.description": "No further changes coming. Rate ☆☆☆☆☆ and subscribe"
 }

@@ -1,0 +1,38 @@
+{
+  "parent": "iron_age:late_reached",
+  "criteria": {
+    "default": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:ender_dragon"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.iron_age.default.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:nether_star"
+    },
+    "title": {
+      "translate": "advancements.iron_age.default.title"
+    }
+  },
+  "requirements": [
+    [
+      "default"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

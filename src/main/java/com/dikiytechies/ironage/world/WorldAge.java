@@ -34,6 +34,16 @@ public class WorldAge extends SavedData {
         setDirty();
     }
 
+    public boolean proceedTo(WorldStage stage) {
+        if ((worldStage.ordinal() + 1) % WorldStage.values().length == stage.ordinal()) {
+            worldStage = stage;
+            PacketDistributor.sendToAllPlayers(new SyncWorldAge(stage));
+            setDirty();
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public CompoundTag save(CompoundTag compoundTag, HolderLookup.Provider provider) {
         compoundTag.putString("WorldStage", worldStage.name());

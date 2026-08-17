@@ -1,5 +1,5 @@
 {
-  "parent": "iron_age:chain_upgrade",
+  "parent": "iron_age:visit_fortress",
   "criteria": {
     "get_iron_upgrade": {
       "conditions": {

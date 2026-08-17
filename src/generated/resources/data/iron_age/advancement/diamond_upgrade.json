@@ -1,5 +1,5 @@
 {
-  "parent": "iron_age:iron_upgrade",
+  "parent": "iron_age:late_reached",
   "criteria": {
     "get_diamond_upgrade": {
       "conditions": {

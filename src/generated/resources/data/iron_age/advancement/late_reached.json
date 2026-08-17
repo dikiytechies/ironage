@@ -1,0 +1,46 @@
+{
+  "parent": "iron_age:iron_upgrade",
+  "criteria": {
+    "end_reached": {
+      "conditions": {
+        "to": "minecraft:the_end"
+      },
+      "trigger": "minecraft:changed_dimension"
+    },
+    "late_reached": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:wither"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.iron_age.late_reached.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:ender_eye"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.iron_age.late_reached.title"
+    }
+  },
+  "requirements": [
+    [
+      "late_reached",
+      "end_reached"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

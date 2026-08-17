@@ -10,6 +10,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class IronAgeConfig {
@@ -93,11 +94,21 @@ public class IronAgeConfig {
     }
 
     public boolean shouldProcessNext(WorldAge.WorldStage stage, Item item) {
-        WorldAge.WorldStage nextStage = WorldAge.WorldStage.values()[Math.clamp(stage.ordinal() + 1, 1, WorldAge.WorldStage.values().length - 1)];
+        WorldAge.WorldStage nextStage = WorldAge.WorldStage.values()[(stage.ordinal() + 1) % WorldAge.WorldStage.values().length];
         return shouldProcess(nextStage, item);
     }
 
     public boolean shouldProcessThisOrPrevOnly(WorldAge.WorldStage stage, Item item) {
         return !shouldProcessNext(stage, item) && shouldProcess(stage, item);
+    }
+
+    public boolean hasNextStage(WorldAge.WorldStage stage) {
+        return stage.ordinal() <= (WorldAge.WorldStage.values().length - 1) && stage.ordinal() != 0;
+    }
+
+    public Optional<WorldAge.WorldStage> nextStage(WorldAge.WorldStage stage) {
+        if (hasNextStage(stage)) {
+            return Optional.of(WorldAge.WorldStage.values()[(stage.ordinal() + 1) % WorldAge.WorldStage.values().length]);
+        } else return Optional.empty();
     }
 }
