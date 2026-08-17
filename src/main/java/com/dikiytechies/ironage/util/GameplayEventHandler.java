@@ -94,7 +94,9 @@ public class GameplayEventHandler {
             var config = IronAgeConfig.CONFIG;
             ItemStack stack = event.getItemStack();
             WorldAge.WorldStage stage = ClientWorldAge.getInstance().getStage();
-            if (config.shouldProcess(stage, stack.getItem())) {
+            if (config.shouldProcessThisOrPrevOnly(stage, stack.getItem())) {
+                event.getToolTip().add(Component.translatable(String.format("tooltip.%s.item_craftable", MOD_ID)).withStyle(ChatFormatting.DARK_BLUE));
+            } else if (config.shouldProcess(stage, stack.getItem())) {
                 event.getToolTip().add(Component.translatable(String.format("tooltip.%s.item_warn", MOD_ID)).withStyle(ChatFormatting.DARK_RED));
             }
         }

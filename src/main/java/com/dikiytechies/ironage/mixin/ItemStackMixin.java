@@ -21,7 +21,7 @@ public abstract class ItemStackMixin {
     public int immediatelyBreak(int damage, @Local(argsOnly = true) ServerLevel level) {
         WorldAge.WorldStage stage = WorldAge.get(level.getServer()).get();
         var config = IronAgeConfig.CONFIG;
-        if (config.shouldProcess(stage, getItem())) {
+        if (config.shouldProcess(stage, getItem()) && !config.shouldProcessThisOrPrevOnly(stage, getItem())) {
             damage = getMaxDamage();
         }
         return damage;

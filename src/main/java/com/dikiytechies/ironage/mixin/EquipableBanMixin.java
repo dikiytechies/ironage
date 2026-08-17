@@ -23,7 +23,7 @@ public interface EquipableBanMixin {
         ItemStack stack = player.getItemInHand(hand);
         WorldAge.WorldStage stage = level.isClientSide()? ClientWorldAge.getInstance().getStage(): WorldAge.get(level.getServer()).get();
         var config = IronAgeConfig.CONFIG;
-        if (config.shouldProcess(stage, item)) {
+        if (config.shouldProcess(stage, item) && !config.shouldProcessThisOrPrevOnly(stage, item)) {
             cir.setReturnValue(InteractionResultHolder.fail(stack));
             cir.cancel();
         }

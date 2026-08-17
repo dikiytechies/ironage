@@ -91,4 +91,13 @@ public class IronAgeConfig {
     public boolean shouldProcess(WorldAge.WorldStage stage, Item item) {
         return shouldProcess(stage, item, ignoreDefaultItems.get());
     }
+
+    public boolean shouldProcessNext(WorldAge.WorldStage stage, Item item) {
+        WorldAge.WorldStage nextStage = WorldAge.WorldStage.values()[Math.clamp(stage.ordinal() + 1, 1, WorldAge.WorldStage.values().length - 1)];
+        return shouldProcess(nextStage, item);
+    }
+
+    public boolean shouldProcessThisOrPrevOnly(WorldAge.WorldStage stage, Item item) {
+        return !shouldProcessNext(stage, item) && shouldProcess(stage, item);
+    }
 }

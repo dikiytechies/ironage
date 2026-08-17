@@ -37,6 +37,7 @@
   "item.iron_age.smithing_template.diamond_upgrade.additions_slot_description": "Add Diamond",
 
   "tooltip.iron_age.item_warn": "Using this item will break it!",
+  "tooltip.iron_age.item_craftable": "You can craft this item with template only",
 
   "advancements.iron_age.root.title": "Iron Age",
   "advancements.iron_age.root.description": "The real stone age starts here",
