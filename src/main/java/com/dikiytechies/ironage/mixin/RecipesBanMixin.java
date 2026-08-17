@@ -1,5 +1,7 @@
 package com.dikiytechies.ironage.mixin;
 
+import com.dikiytechies.ironage.IronAgeConfig;
+import com.dikiytechies.ironage.world.ClientWorldAge;
 import com.dikiytechies.ironage.world.WorldAge;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -28,29 +30,37 @@ public abstract class RecipesBanMixin {
             at = @At("HEAD"), cancellable = true)
     public <I extends RecipeInput, T extends Recipe<I>> void banRecipes(
             RecipeType<T> recipe, I input, Level level, @Nullable RecipeHolder<T> lastRecipe, CallbackInfoReturnable<Optional<RecipeHolder<T>>> cir) {
-        if (!level.isClientSide()) {
-            if (isCookingRecipe(recipe) && checkIron(recipe, input, level)) {
-                cir.setReturnValue(getNuggetsRecipe(recipe, level));
-                cir.cancel();
-            } else if (checkIron(recipe, input, level) || checkStone(recipe, input, level)) {
-                cir.setReturnValue(Optional.empty());
-                cir.cancel();
-            }
+        if (isCookingRecipe(recipe) || checkIron(recipe, input, level)) {
+            cir.setReturnValue(getNuggetsRecipe(recipe, level));
+            cir.cancel();
+        } else if (shouldProcessRecipe(recipe, input, level)) {
+            cir.setReturnValue(Optional.empty());
+            cir.cancel();
         }
     }
 
     @Unique
-    private <I extends RecipeInput, T extends Recipe<I>> boolean checkIron(RecipeType<T> recipe, I input, Level level) {
-        return this.byType(recipe).stream().anyMatch(r -> r.value().matches(input, level)
-                && r.value().getResultItem(level.registryAccess()).is(Items.IRON_INGOT)) &&
-                !WorldAge.get(level.getServer()).get().equals(WorldAge.WorldStage.DEFAULT);
+    private <I extends RecipeInput, T extends Recipe<I>> boolean shouldProcessRecipe(RecipeType<T> recipe, I input, Level level) {
+        var stage = level.isClientSide()? ClientWorldAge.getInstance().getStage(): WorldAge.get(level.getServer()).get();
+        var config = IronAgeConfig.CONFIG;
+        return this.byType(recipe).stream().anyMatch(r -> r.value().matches(input, level) &&
+                config.shouldProcess(stage, r.value().getResultItem(level.registryAccess()).getItem()));
     }
 
-    @Unique
+    @Unique @Deprecated
+    private <I extends RecipeInput, T extends Recipe<I>> boolean checkIron(RecipeType<T> recipe, I input, Level level) {
+        var stage = level.isClientSide()? ClientWorldAge.getInstance().getStage(): WorldAge.get(level.getServer()).get();
+        return this.byType(recipe).stream().anyMatch(r -> r.value().matches(input, level)
+                && r.value().getResultItem(level.registryAccess()).is(Items.IRON_INGOT)) &&
+                !stage.equals(WorldAge.WorldStage.DEFAULT);
+    }
+
+    @Unique @Deprecated
     private <I extends RecipeInput, T extends Recipe<I>> boolean checkStone(RecipeType<T> recipe, I input, Level level) {
+        var stage = level.isClientSide()? ClientWorldAge.getInstance().getStage(): WorldAge.get(level.getServer()).get();
         return this.byType(recipe).stream().anyMatch(r -> r.value().matches(input, level)
                 && stoneTools.contains(r.value().getResultItem(level.registryAccess()).getItem())) &&
-                WorldAge.get(level.getServer()).get().equals(WorldAge.WorldStage.PRE_STONE);
+                stage.equals(WorldAge.WorldStage.PRE_STONE);
     }
 
     @Unique
