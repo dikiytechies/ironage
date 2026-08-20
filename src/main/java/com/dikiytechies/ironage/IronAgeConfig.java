@@ -27,6 +27,7 @@ public class IronAgeConfig {
     public final ModConfigSpec.EnumValue<WorldAge.WorldStage> startingStage;
     public final ModConfigSpec.ConfigValue<List<? extends String>> preStoneItems;
     public final ModConfigSpec.ConfigValue<List<? extends String>> preIronItems;
+    public final ModConfigSpec.ConfigValue<List<? extends String>> preDiamondItems;
     public final ModConfigSpec.ConfigValue<Boolean> ignoreDefaultItems;
 
     public IronAgeConfig(ModConfigSpec.Builder builder) {
@@ -37,8 +38,8 @@ public class IronAgeConfig {
         builder.push("Item component assignment");
         builder.comment("Ignores default items to ban");
         builder.comment("This includes both armor materials and tool tiers for late-game and STONE for early");
-        builder.comment("Tools: (STONE, GOLD ; IRON, DIAMOND and NETHERITE)");
-        builder.comment("Armor: (CHAIN, GOLD ; IRON, DIAMOND and NETHERITE)");
+        builder.comment("Tools: (STONE, GOLD ; IRON; DIAMOND and NETHERITE)");
+        builder.comment("Armor: (CHAIN, GOLD ; IRON; DIAMOND and NETHERITE)");
         ignoreDefaultItems = builder.define("ignore_default", false);
         builder.comment("Assigns items banned on PRE_STONE");
         preStoneItems = builder.defineList("pre_stone_items", List.of(),
@@ -46,6 +47,10 @@ public class IronAgeConfig {
                 loc -> loc instanceof String str && ResourceLocation.tryParse(str) != null);
         builder.comment("Assigns items banned on PRE_IRON");
         preIronItems = builder.defineListAllowEmpty("pre_iron_items", List.of(),
+                () -> "minecraft:air",
+                loc -> loc instanceof String str && ResourceLocation.tryParse(str) != null);
+        builder.comment("Assigns items banned on PRE_DIAMOND");
+        preDiamondItems = builder.defineListAllowEmpty("pre_diamond_items", List.of(),
                 () -> "minecraft:air",
                 loc -> loc instanceof String str && ResourceLocation.tryParse(str) != null);
         builder.pop();
@@ -71,13 +76,20 @@ public class IronAgeConfig {
         return getBannedFromList(preIronItems.get());
     }
 
+    public List<Item> getPreDiamondBanned() {
+        return getBannedFromList(preDiamondItems.get());
+    }
+
     private boolean shouldProcess(WorldAge.WorldStage stage, Item item, boolean ignoreDefaults) {
         Set<Item> manuallyBanned = new HashSet<>();
-        if (stage.equals(WorldAge.WorldStage.PRE_STONE)) {
-            manuallyBanned.addAll(getPreStoneBanned());
-            manuallyBanned.addAll(getPreIronBanned());
-        } else if (stage.equals(WorldAge.WorldStage.PRE_IRON)) {
-            manuallyBanned.addAll(getPreIronBanned());
+        switch (stage) {
+            case PRE_STONE:
+                manuallyBanned.addAll(getPreStoneBanned());
+            case PRE_IRON:
+                manuallyBanned.addAll(getPreIronBanned());
+            case PRE_LATE:
+                manuallyBanned.addAll(getPreDiamondBanned());
+                break;
         }
         boolean isInBanList = manuallyBanned.contains(item);
         boolean shouldBeBannedByDefault = false;
