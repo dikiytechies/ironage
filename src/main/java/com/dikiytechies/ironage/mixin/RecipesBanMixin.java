@@ -30,7 +30,7 @@ public abstract class RecipesBanMixin {
             at = @At("HEAD"), cancellable = true)
     public <I extends RecipeInput, T extends Recipe<I>> void banRecipes(
             RecipeType<T> recipe, I input, Level level, @Nullable RecipeHolder<T> lastRecipe, CallbackInfoReturnable<Optional<RecipeHolder<T>>> cir) {
-        if (isCookingRecipe(recipe) || checkIron(recipe, input, level)) {
+        if (isCookingRecipe(recipe) && checkIron(recipe, input, level)) {
             cir.setReturnValue(getNuggetsRecipe(recipe, level));
             cir.cancel();
         } else if (shouldProcessRecipe(recipe, input, level)) {
